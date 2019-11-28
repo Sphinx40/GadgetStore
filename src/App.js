@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { connect } from 'react-redux';
 import * as actions from './actions';
@@ -6,19 +6,22 @@ import * as actions from './actions';
 const App = ({ Gadgets, minus, plus, buy }) => {
 
   const { gadget, total } = Gadgets;
-
-  console.log(Gadgets.total)
+  var numbers = [1,1,1,1,1,1];
+  const [idx, setIdx] = useState()
+  const [copyId, setCopyId] = useState()
+  
   const P = (id) => {
-    console.log(id)
-    plus(id)
+      
   }
 
   const M = (id) => {
-    console.log(id)
-    minus(id)
+    
+    
+
   }
-
-
+  
+  
+  
   return (
     <div className='shop'>
 
@@ -34,9 +37,9 @@ const App = ({ Gadgets, minus, plus, buy }) => {
                 <div class="content">
                   <div class="header">{g.title}</div>
                   <div class="description"><button class="ui mini button" onClick={() => M(id)}><i aria-hidden="true" class="minus icon"></i></button>
-                    {g.num}  
+                      &nbsp;{copyId===id ? numbers[idx] : 1}&nbsp;
                    <button class="ui mini button" onClick={() => P(id)}><i aria-hidden="true" class="plus icon"></i></button><br></br>
-                   <button class="ui mini red button" id='buttonBuy' onClick={buy}>Buy</button></div>
+                    <button class="ui mini red button" id='buttonBuy' onClick={buy}>Buy</button></div>
                 </div>
                 <div class="extra content">
                   <a>
@@ -61,4 +64,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps,actions)(App);
+export default connect(mapStateToProps, actions)(App);
