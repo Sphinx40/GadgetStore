@@ -1,7 +1,7 @@
 const initialstate = {
     total: 0,
     gadget: [
-        {
+        {   
             img: 'https://object.pscloud.io/cms/cms/Photo/img_0_83_1081_0.jpg',
             title: 'Apple Airpods MV7N2RU/A (White)',
             price: 89990,
@@ -37,15 +37,32 @@ const initialstate = {
 }
 
 const reducer = (state = initialstate,action) => {
+    console.log(action.payload)
     switch(action.type){
         case 'BUY': 
-            return state;
+            return state.total;
+            break;
         case 'INC':
-            return state.gadget[action.payload].num + 1;
+          return (
+            state.total,
+            state.gadget.map((item,id) => {
+                if(id === action.payload){
+                    console.log('id',id , ' action ',action.payload)
+                    return {
+                        ...item,
+                        num: state.gadget.num+1
+                    }
+                }
+            })
+          )
+                
+         
         case 'DEC':
-            return state.gadget[action.payload].num - 1;
+            return state;
+            break;
         default:
             return state; 
     }
 }
+
 export default reducer;
