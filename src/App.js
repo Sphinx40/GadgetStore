@@ -3,30 +3,49 @@ import './App.css';
 import { connect } from 'react-redux';
 import * as actions from './actions';
 
-const App = ({ Gadgets, minus, plus, buy }) => {
+const App = ({ Gadgets, buy }) => {
 
   const { gadget, total } = Gadgets;
-  var numbers = [1,1,1,1,1,1];
-  const [idx, setIdx] = useState()
+  const [number, setNumber] = useState(1)
   const [copyId, setCopyId] = useState()
-  
-  const P = (id) => {
-      
+
+  const Plus = (id) => {
+    if (copyId === id || copyId === undefined) {
+      setNumber(number + 1)
+      setCopyId(id)
+    } else if (copyId !== id) {
+      setNumber(1)
+      setNumber(1 + 1)
+      setCopyId(id)
+    }
   }
 
-  const M = (id) => {
-    
-    
 
+  const Minus = (id) => {
+    if (number > 1) {
+      if (copyId === id || copyId === undefined) {
+        setNumber(number - 1)
+        setCopyId(id)
+      } else if (copyId !== id) {
+        setNumber(1)
+        setNumber(1 - 1)
+        setCopyId(id)
+      }
+    }
   }
-  
-  
-  
+
+  const buyGadget = (id) => {
+    buy(id, number)
+  }
+
+
+
   return (
     <div className='shop'>
 
       <div className='ui container'>
-        <h1>Total: {total}</h1>
+        <div className='headerStore'><h1>Store</h1></div>
+        <div className='totalNumber'><h2>Total: {Gadgets.total}</h2></div>
         <div className='row'>
           {gadget.map((g, id) => (
             <div className='col-sm-4' key={id}>
@@ -36,14 +55,14 @@ const App = ({ Gadgets, minus, plus, buy }) => {
                 </div>
                 <div class="content">
                   <div class="header">{g.title}</div>
-                  <div class="description"><button class="ui mini button" onClick={() => M(id)}><i aria-hidden="true" class="minus icon"></i></button>
-                      &nbsp;{copyId===id ? numbers[idx] : 1}&nbsp;
-                   <button class="ui mini button" onClick={() => P(id)}><i aria-hidden="true" class="plus icon"></i></button><br></br>
-                    <button class="ui mini red button" id='buttonBuy' onClick={buy}>Buy</button></div>
+                  <div class="description"><button class="ui mini button" onClick={() => Minus(id)}><i aria-hidden="true" class="minus icon"></i></button>
+                    &nbsp;{copyId === id ? number : 1}&nbsp;
+                   <button class="ui mini button" onClick={() => Plus(id)}><i aria-hidden="true" class="plus icon"></i></button><br></br>
+                    <button class="ui mini red button" id='buttonBuy' onClick={() => buyGadget(id)}>Buy</button></div>
                 </div>
                 <div class="extra content">
                   <a>
-                    <i aria-hidden="true" class="user icon"></i>
+
                     {g.price}тг
        </a>
                 </div>

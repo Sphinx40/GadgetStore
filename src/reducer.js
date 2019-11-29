@@ -26,15 +26,20 @@ const initialstate = {
             title: 'Asus Vivobook 15 X512FA-BQ810T Transparent Silver (90NB0KR2-M11940)',
             price: 329990
         }
-    
     ]
 }
 
 const reducer = (state = initialstate,action) => {
-    console.log(action.payload)
+    var t = 0;
     switch(action.type){
         case 'BUY': 
-            return state;
+            for(var z = 0; z<action.payload.number; z++){
+                t=t+state.gadget[action.payload.id].price
+            }
+            return{
+                ...state,
+                total: state.total+t
+            }
         default:
             return state; 
     }

@@ -6,9 +6,18 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     width: 250px;
 }
-#headerStore{
-    text-align: center;
+.headerStore{
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 2.5rem;
+    padding-left: 1rem;
 }
+.totalNumber{
+    text-align: end;
+}
+
 #buttonBuy{
     margin-top: 10px;
 }
