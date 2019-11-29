@@ -21,3 +21,10 @@
 #buttonBuy{
     margin-top: 10px;
 }
+.viewButton{
+    margin-top: 5px;
+}
+
+body{
+    height: 1600px;
+}
