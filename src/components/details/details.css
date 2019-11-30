@@ -1,0 +1,10 @@
+.details{
+    margin-top: 50px;
+}
+
+.gadgetImage{
+    width: 340px;
+}
+#gadgetTitle{
+    white-space: pre-line;
+}

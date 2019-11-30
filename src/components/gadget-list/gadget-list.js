@@ -1,21 +1,41 @@
-import React from 'react';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import './gadget-list.css';
 import { connect } from 'react-redux';
-import * as actions from './actions';
+import * as actions from '../../actions';
+const GadgetList = ({ state, onItemSelected, scroll }) => {
+  const { gadget, search } = state;
+  const [Gadget, setGadget] = useState(gadget)
 
-const ListPage = ({ Gadgets, buy }) => {
 
-  const { gadget, total } = Gadgets;
+  useEffect(() => {
+   scroll(false)
+
+  },[])
+
+  const handleClick = (id) => {
+    console.log(id)
+    onItemSelected(id)
+    scroll(true)
+  }
+
+
+ 
+    let f = Gadget.filter(
+        (Gadget) => {
+            return Gadget.title.toLowerCase().toUpperCase().indexOf(
+                search.toLowerCase().toUpperCase()
+            ) !== -1;
+        }
+    );
 
   return (
 
     <div className='shop'>
 
       <div className='ui container'>
-        <div className='headerStore'><h1>Store</h1></div>
-        <div className='totalNumber'><h2>Total: {total}тг</h2></div>
+        
         <div className='row'>
-          {gadget.map((g, id) => (
+          {f.map((g, id) => (
             <div className='col-sm-4' key={id}>
               <div class="ui card" id='card'>
                 <div class="image">
@@ -24,7 +44,6 @@ const ListPage = ({ Gadgets, buy }) => {
                 <div class="content">
                   <div class="header">{g.title}</div>
                   <div class="description">
-                   
                   </div>
                 </div>
                 <div class="extra content">
@@ -32,7 +51,7 @@ const ListPage = ({ Gadgets, buy }) => {
                     {g.price} тг
                   </a>
                   <div className='viewButton'>
-                    <button class="ui red inverted tiny fluid button">Buy</button>
+                    <button class="ui red inverted tiny fluid button" onClick={() => handleClick(g.idx)}>Buy</button>
                   </div>
                 </div>
               </div>
@@ -48,9 +67,9 @@ const ListPage = ({ Gadgets, buy }) => {
 
 const mapStateToProps = (state) => {
   return {
-    Gadgets: state
+    state
   }
 }
 
 
-export default connect(mapStateToProps, actions)(ListPage);
+export default connect(mapStateToProps,actions)(GadgetList);
