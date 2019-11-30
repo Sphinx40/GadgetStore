@@ -22,6 +22,7 @@ const App = () => {
              return <Details id={id}/>
              }}/>
       <Route path='/save' component={Favourite} />
+      <Route render={() => <h2>Page not found</h2>} />
       </Switch>
     
      </Router>

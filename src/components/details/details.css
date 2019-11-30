@@ -1,10 +1,45 @@
 .details{
     margin-top: 50px;
+    color: white;
 }
 
 .gadgetImage{
     width: 340px;
 }
+
 #gadgetTitle{
     white-space: pre-line;
 }
+
+@media only screen and (max-width: 600px) {
+    .gadgetImage{
+        width: 350px;
+        margin-left: 130px;
+        margin-bottom: 50px;
+    }
+    #titleG{
+        margin-top: 20px;
+    }
+    #gadgetTitle{
+        font-size: 25px;    
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .gadgetImage{
+        width: 220px;
+        margin-top: 70px
+    }
+    #gadgetTitle{
+        font-size: 25px;    
+    }
+}
+
+@media only screen and (max-width: 1199px) {
+    .gadgetImage{
+        width: 200px;
+        margin-top: 70px
+    }
+    
+}
+

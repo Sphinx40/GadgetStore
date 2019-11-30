@@ -3,6 +3,7 @@ const initialstate = {
     scroll: false,
     favourites: [],
     search: '',
+    tableActive: false,
     gadget: [
         {   
             idx: 0,
@@ -146,6 +147,11 @@ const reducer = (state = initialstate,action) => {
                     return {
                         ...state,
                         search: action.payload.word
+                    }
+            case 'ACTIVE': 
+                    return {
+                        ...state,
+                        tableActive: true
                     }
         default:
             return state; 

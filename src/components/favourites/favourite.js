@@ -3,7 +3,7 @@ import './favourite.css';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 const Favourite = ({ state, buy, Delete }) => {
-    const { favourites, gadget } = state;
+    const { favourites, gadget, tableActive } = state;
 
 
     const handleBuy = (id,count) => {
@@ -22,9 +22,11 @@ const Favourite = ({ state, buy, Delete }) => {
     return (
         <div className='favouriteGadget'>
         <div className='ui container'>
+            {tableActive ? 
             <table class="ui basic table">
                 <thead class="">
                     <tr class="">
+                        <th className="">Id</th>
                         <th class="">Gadget</th>
                         <th class="">Count</th>
                         <th class="">Price</th>
@@ -34,6 +36,7 @@ const Favourite = ({ state, buy, Delete }) => {
                 <tbody class="">
                     {favourites.map((item,id) => (
                       <tr class="" key={id}>
+                        <td class="">{id+1}</td>
                         <td class="">{item.title}</td>
                         <td class="">{item.count}</td>
                         <td class="">{item.price}</td>
@@ -42,7 +45,8 @@ const Favourite = ({ state, buy, Delete }) => {
                     ))}  
                   
                 </tbody>
-            </table>
+            </table> : <div><h2>Пока что, ничего нету!!!</h2></div>
+}
         </div>
         </div>
     )

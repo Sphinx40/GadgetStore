@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './details.css';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-const Details = ({ id, state, buy, favourites }) => {
+const Details = ({ id, state, buy, favourites, active }) => {
     const [num, setNum] = useState(1)
 
     const minus = () => {
@@ -21,6 +21,8 @@ const Details = ({ id, state, buy, favourites }) => {
     }
 
     const izbrannoe = () => {
+        active()
+        setNum(1)
         favourites(id,num)
     }
 
@@ -32,11 +34,11 @@ const Details = ({ id, state, buy, favourites }) => {
         <div className='details'>
             <div className='ui container'>
                 <div className='row'>
-                    <div className='col-md-4 card card-body'>
+                    <div className='col-md-4 card card-body' id='cardImg'>
                         <img className='gadgetImage' src={gadget[id].img} />
                     </div>
                     <div className='col-md-8'>
-                        <h2 className='mb-4' >{gadget[id].title}</h2>
+                        <h2 className='mb-4' id='titleG'>{gadget[id].title}</h2>
                         <h4>{gadget[id].price} тг</h4>
                         <br />
                         <button class="ui secondary button" onClick={minus}>-</button>
