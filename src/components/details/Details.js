@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './details.css';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 const Details = ({ id, state, buy, favourites, active }) => {
     const [num, setNum] = useState(1)
+
+    useEffect(() => {
+    if (scroll) {
+        window.scrollTo(0, 0)
+    }
+    },[])
+
 
     const minus = () => {
         if(num>1){
@@ -27,9 +34,7 @@ const Details = ({ id, state, buy, favourites, active }) => {
     }
 
     const { gadget, scroll } = state;
-    if (scroll) {
-        window.scrollTo(0, 0)
-    }
+    
     return (
         <div className='details'>
             <div className='ui container'>
@@ -48,7 +53,9 @@ const Details = ({ id, state, buy, favourites, active }) => {
                         <br/>
                         <button class="ui red inverted button" onClick={handleBuy}>Buy</button>
                         <br/>
-                        <br/>
+                      
+                        <h3>Описание</h3>
+                        
                         <h4 id='gadgetTitle'>{gadget[id].description}</h4>
                         <button class="ui yellow button" onClick={izbrannoe}>В избранное</button>
                     </div>

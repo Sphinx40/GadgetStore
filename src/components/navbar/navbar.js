@@ -26,18 +26,34 @@ const Navbar = ({ total, search }) => {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <Link class="nav-link" to='/save'>Favourites</Link>
+                            <Link class="nav-link" to='/save'>Избранные</Link>
                         </li>
                     </ul>
                     <div class="form-inline my-2 my-lg-0">
-                        <h3 className='my-2 my-sm-0' style={{marginRight: 20}}>Total: {total} тг</h3>
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" value={searchWord} onChange={(e) => setSearchWord(e.target.value)} />
-                        <button class="btn btn-outline-success my-2 my-sm-0" onClick={handleClick}>Search</button>
-                    </div>
+                        <h3 className='my-2 my-sm-0' style={{ marginRight: 20 }}>Total: {total} тг</h3>
+                        <div className="column">
+
+                            <div className="ui search">
+                                <div className="ui icon input">
+                                    <input
+                                        type="text"
+                                        placeholder="Search ..."
+                                        value={searchWord}
+                                        className="prompt"
+                                        placeholder="Search"
+                                        onChange={(e) => setSearchWord(e.target.value)}
+                                    />
+                                    <i aria-hidden="true" className="search circular inverted link icon" onClick={handleClick}></i>
+                                </div>
+                            <i aria-hidden="true" className="eraser circular inverted link icon" onClick={handleStore}></i>
+                            </div>
+
+                        </div>
+                </div>
                 </div>
             </nav>
 
-        </div>
+        </div >
     )
 }
 
@@ -47,4 +63,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps,actions)(Navbar);
+export default connect(mapStateToProps, actions)(Navbar);

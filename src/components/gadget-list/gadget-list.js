@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './gadget-list.css';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
+
 const GadgetList = ({ state, onItemSelected, scroll }) => {
   const { gadget, search } = state;
   const [Gadget, setGadget] = useState(gadget)
@@ -9,11 +10,9 @@ const GadgetList = ({ state, onItemSelected, scroll }) => {
 
   useEffect(() => {
    scroll(false)
-
   },[])
 
   const handleClick = (id) => {
-    console.log(id)
     onItemSelected(id)
     scroll(true)
   }
@@ -36,7 +35,7 @@ const GadgetList = ({ state, onItemSelected, scroll }) => {
         
         <div className='row'>
           {f.map((g, id) => (
-            <div className='col-sm-4' key={id}>
+            <div className='col-sm-3' key={id}>
               <div class="ui card" id='card'>
                 <div class="image">
                   <img src={g.img} />
@@ -60,6 +59,7 @@ const GadgetList = ({ state, onItemSelected, scroll }) => {
 
           }</div>
       </div>
+
     </div>
 
   );

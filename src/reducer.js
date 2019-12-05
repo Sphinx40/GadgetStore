@@ -104,6 +104,39 @@ const initialstate = {
             Разрядность шины видеопамяти: 192 бит
             Интерфейс поключения: PCI Express x16 3.0
             Порты: DisplayPort, DVI-D, HDMI`
+        },{
+            idx: 9,
+            img: 'https://object.pscloud.io/cms/cms/Photo/img_0_911_173_2.jpg',
+            title: 'Apple Watch Series 4 GPS 40mm Silver Aluminium Case with Seashell Sport Loop',
+            price: 179990,
+            description: `Серия: Apple Watch Series 4
+            Форма корпуса часов: Прямоугольник
+            Способ отображения времени: Цифровой (электронный)
+            Материал браслета/ремешка: Нейлон`
+        },{
+            idx: 10,
+            img: 'https://object.pscloud.io/cms/cms/Photo/img_0_647_24_0.jpg',
+            title: 'Sony HDRAS300R',
+            price: 129990,
+            description: `Максимальное разрешение записи: Full HD: 1920x1080 / 60p
+            Вес, гр: 109
+            Тип матрицы: CMOS
+            Разрешение матрицы, мпикс: 8.2
+            Количество матриц: 1
+            Интерфейс: Wi-Fi, Bluetooth`
+        },{
+            idx: 11,
+            img: 'https://object.pscloud.io/cms/cms/Photo/img_0_65_244_1.jpg',
+            title: 'Samsung LU32R590CWIXCI',
+            price: 199990,
+            description: `Диагональ, дюйм: 31.5
+            Тип матрицы: VA
+            Разрешение экрана: 3840x2160
+            Формат: 16:9
+            Время отклика, мс: 4
+            Частота обновления кадров, Гц: 60
+            Яркость матрицы, кд/м²: 250
+            Интерфейс: 1x HDMI, 1x DisplayPort`
         }
     ]
 }
@@ -153,6 +186,7 @@ const reducer = (state = initialstate,action) => {
                         ...state,
                         tableActive: true
                     }
+
         default:
             return state; 
     }

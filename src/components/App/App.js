@@ -5,6 +5,7 @@ import Details from '../details/Details';
 import Navbar from '../navbar/navbar';
 import Favourite from '../favourites/favourite';
 import './App.css';
+
 const App = () => {
 
 
@@ -13,14 +14,27 @@ const App = () => {
         <Navbar />
     <Switch >
       <Route path="/"
-             render={() => <GadgetPage />}
+             render={() => {
+               return(
+                 <div>
+                   <GadgetPage />
+                 </div>
+               )
+      }}
              exact />
 
       <Route path='/gadget/:id'
              render={({ match }) => {
              const { id } = match.params;
-             return <Details id={id}/>
-             }}/>
+             return (
+               <div>
+              <Details id={id}/>
+              </div>
+              )
+      }}/>
+
+
+
       <Route path='/save' component={Favourite} />
       <Route render={() => <h2>Page not found</h2>} />
       </Switch>

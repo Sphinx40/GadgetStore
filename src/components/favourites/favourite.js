@@ -23,7 +23,7 @@ const Favourite = ({ state, buy, Delete }) => {
         <div className='favouriteGadget'>
         <div className='ui container'>
             {tableActive ? 
-            <table class="ui basic table">
+            <table class="ui red table">
                 <thead class="">
                     <tr class="">
                         <th className="">Id</th>
@@ -40,7 +40,7 @@ const Favourite = ({ state, buy, Delete }) => {
                         <td class="">{item.title}</td>
                         <td class="">{item.count}</td>
                         <td class="">{item.price}</td>
-                        <td class=""><button class="ui green tiny button" onClick={() => handleBuy(item.id,item.count)}>Buy</button><button class="ui red tiny button" onClick={() => handleDelete(id)}>Delete</button></td>
+                        <td class=""><button class="ui green tiny button" onClick={() => handleBuy(item.id,item.count)}>Buy</button><button class="ui red tiny inverted button" onClick={() => handleDelete(id)}>Delete</button></td>
                       </tr>  
                     ))}  
                   
