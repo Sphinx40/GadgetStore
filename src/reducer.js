@@ -142,9 +142,10 @@ const initialstate = {
 }
 
 const reducer = (state = initialstate,action) => {
-    var t = 0;
+    
     switch(action.type){
         case 'BUY': 
+            var t = 0;
             for(var z = 0; z<action.payload.number; z++){
                 t=t+state.gadget[action.payload.id].price
             }
@@ -158,13 +159,16 @@ const reducer = (state = initialstate,action) => {
                 scroll: action.payload.tf
             }
         case 'FAVOURITES': 
-
+            var t = 0;
+            for(var z = 0; z<action.payload.num;z++){
+                t+=state.gadget[action.payload.fav].price
+            }
             return {
                 ...state,
                 favourites: [...state.favourites,{ 
                                                     img: state.gadget[action.payload.fav].img,
                                                     title: state.gadget[action.payload.fav].title,
-                                                    price: state.gadget[action.payload.fav].price,
+                                                    price: t,
                                                     count: action.payload.num,
                                                     id: action.payload.fav
                                                 }]
