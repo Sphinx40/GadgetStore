@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './details.css';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-const Details = ({ id, state, buy, favourites, active }) => {
+import { Label, Header, Button } from 'semantic-ui-react';
+import { moneyFormat } from '../../utils/helpers';
+
+const Details = ({ id, state, buy, favourites, active, bought }) => {
     const [num, setNum] = useState(1)
 
     useEffect(() => {
@@ -25,12 +28,25 @@ const Details = ({ id, state, buy, favourites, active }) => {
     const handleBuy = () => {
         buy(id,num)
         setNum(1)
+        const g = {
+            idx: gadget[id].idx,
+            img: gadget[id].img,
+            title: gadget[id].title,
+            price: 0,
+            count: num
+        }
+
+        for (var t = 0; t<num; t++) {
+            g.price = g.price + gadget[id].price;
+        }
+
+        bought(g)
     }
 
     const izbrannoe = () => {
         active()
         setNum(1)
-        favourites(id,num)
+        favourites(id)
     }
 
     const { gadget, scroll } = state;
@@ -40,11 +56,15 @@ const Details = ({ id, state, buy, favourites, active }) => {
             <div className='ui container'>
                 <div className='row'>
                     <div className='col-md-4 card card-body' id='cardImg'>
-                        <img className='gadgetImage' src={gadget[id].img} />
+                        <img className='gadgetImage' src={gadget[id].img}></img>
                     </div>
                     <div className='col-md-8'>
-                        <h2 className='mb-4' id='titleG'>{gadget[id].title}</h2>
-                        <h4>{gadget[id].price} тг</h4>
+                        <Header as='h2' inverted>{gadget[id].title}
+                        <Button color='red' floated='right' onClick={izbrannoe}>В избранное</Button>
+                        </Header>
+                        <Label.Group tag>
+                        <Label as='a' color='red'>{moneyFormat(gadget[id].price)} тг</Label> 
+                        </Label.Group>
                         <br />
                         <button class="ui secondary button" onClick={minus}>-</button>
                         {num}&nbsp;
@@ -53,11 +73,9 @@ const Details = ({ id, state, buy, favourites, active }) => {
                         <br/>
                         <button class="ui red inverted button" onClick={handleBuy}>Buy</button>
                         <br/>
-                      
+                        <br/>
                         <h3>Описание</h3>
-                        
-                        <h4 id='gadgetTitle'>{gadget[id].description}</h4>
-                        <button class="ui yellow button" onClick={izbrannoe}>В избранное</button>
+                        <Header as='h3' id='gadgetTitle' inverted>{gadget[id].description}</Header>
                     </div>
                 </div>
             </div>

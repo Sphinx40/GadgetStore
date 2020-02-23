@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './navbar.css';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as actions from '../../actions';
-const Navbar = ({ total, search }) => {
+import { moneyFormat } from '../../utils/helpers';
+
+const Navbar = ({ total, search, state }) => {
     const [searchWord, setSearchWord] = useState('')
+    const [onActive, setOnActive] = useState('');
+    const { boughtGadgets } = state;
 
     const handleClick = () => {
         search(searchWord)
@@ -13,6 +17,11 @@ const Navbar = ({ total, search }) => {
     const handleStore = () => {
         search('')
         setSearchWord('')
+        setOnActive('Store')
+    }
+
+    const itemSelected = (text) => {
+        setOnActive(text)
     }
 
     return (
@@ -25,14 +34,16 @@ const Navbar = ({ total, search }) => {
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
+                        <li class={onActive==='izbrannoe' ? 'nav-item active' : 'nav-item'} onClick={() => itemSelected('izbrannoe')}>
                             <Link class="nav-link" to='/save'>Избранные</Link>
+                        </li>
+                        <li class={onActive==='purchased' ? 'nav-item active' : 'nav-item'} onClick={() => itemSelected('purchased')}>
+                            <Link class="nav-link" to='/PurchasedGadgets'>Купленные</Link>
                         </li>
                     </ul>
                     <div class="form-inline my-2 my-lg-0">
-                        <h3 className='my-2 my-sm-0' style={{ marginRight: 20 }}>Total: {total} тг</h3>
+                        <h3 className='my-2 my-sm-0' style={{ marginRight: 20 }}>Total: {moneyFormat(total)} тг</h3>
                         <div className="column">
-
                             <div className="ui search">
                                 <div className="ui icon input">
                                     <input
@@ -59,7 +70,8 @@ const Navbar = ({ total, search }) => {
 
 const mapStateToProps = (state) => {
     return {
-        total: state.total
+        total: state.total,
+        state: state
     }
 }
 
