@@ -5,7 +5,7 @@ import * as actions from '../../actions';
 import { Button, Header } from 'semantic-ui-react';
 import { moneyFormat } from '../../utils/helpers';
 
-const Favourite = ({ state, buy, Delete }) => {
+const Favourite = ({ state, buy, Delete, bought }) => {
     const { favourites, gadget, tableActive } = state;
     const [favouriteList, setFavouriteList] = useState([]);
     const [gadgetPrice, setGadgetPrice] = useState(0);
@@ -14,8 +14,19 @@ const Favourite = ({ state, buy, Delete }) => {
         setFavouriteList(favourites)
     },[favourites])
 
-    const handleBuy = (id,count) => {
-        buy(id,count)
+    const handleBuy = (id,count,page) => {
+        buy(id,count,page)
+         const g = {
+            idx: gadget[page][id].idx,
+            img: gadget[page][id].img,
+            title: gadget[page][id].title,
+            price: 0,
+            count: favouriteList[id].count
+        } 
+         for (var p = 0; p < g.count; p++) {
+            g.price = g.price + gadget[page][id].price;
+        }
+        bought(g) 
     }
     
     const handleDelete = (id) => {
@@ -79,12 +90,12 @@ const Favourite = ({ state, buy, Delete }) => {
                         <td class=""><img src={item.img} id='titleImg'/>{item.title}</td>
                         <td class=""><Button color='instagram' onClick={() => onPlus(item.id)}>+</Button> {item.count} <Button color='instagram' onClick={() => onMinus(item.id)}>-</Button></td>
                         <td class="">{moneyFormat(item.price)}</td>
-                        <td class=""><button class="ui green tiny button" onClick={() => handleBuy(item.id,item.count)}>Buy</button><button class="ui red tiny inverted button" onClick={() => handleDelete(id)}>Delete</button></td>
+                        <td class=""><button class="ui green tiny button" onClick={() => handleBuy(item.id,item.count,item.page)}>Buy</button><button class="ui red tiny inverted button" onClick={() => handleDelete(id)}>Delete</button></td>
                       </tr>  
                     ))}  
                   
                 </tbody>
-            </table> : <div><Header inverted as='h2'>Пока что, ничего нету !!!</Header></div>
+            </table> : <div><Header as='h2' inverted>Пока что, ничего нету !!!</Header></div>
 }
         </div>
         </div>

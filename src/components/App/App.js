@@ -24,12 +24,12 @@ const App = () => {
       }}
              exact />
 
-      <Route path='/gadget/:id'
+      <Route path='/page/:page/gadget/:id'
              render={({ match }) => {
-             const { id } = match.params;
+             const { id, page } = match.params;
              return (
                <div>
-              <Details id={id}/>
+              <Details id={id} page={page}/>
               </div>
               )
       }}/>
