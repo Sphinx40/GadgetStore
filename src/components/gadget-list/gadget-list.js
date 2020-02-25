@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './gadget-list.css';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import { Pagination, Segment } from 'semantic-ui-react'
+import { Pagination, Segment } from 'semantic-ui-react';
+import { moneyFormat } from '../../utils/helpers';
 
 const GadgetList = ({ state, onItemSelected, scroll }) => {
   const { gadget, search } = state;
@@ -55,7 +56,7 @@ const GadgetList = ({ state, onItemSelected, scroll }) => {
                 </div>
                 <div class="extra content">
                   <a>
-                    {g.price} тг
+                    {moneyFormat(g.price)} тг
                   </a>
                   <div className='viewButton'>
                     <button class="ui red inverted tiny fluid button" onClick={() => handleClick(id)}>Buy</button>

@@ -73,7 +73,7 @@ const initialstate = {
                 idx: 5,
                 img: 'https://object.pscloud.io/cms/cms/Photo/img_0_62_1525_1.png',
                 title: 'Asus Vivobook 15 X512FA-BQ810T Transparent Silver (90NB0KR2-M11940)',
-                price: 329990,
+                price: 279990,
                 description: `Диагональ дисплея, дюйм: 14
             Серия процессора: Intel Core i5
             Модель процессора: 8250U
@@ -236,6 +236,59 @@ const initialstate = {
                 Объем встроенной памяти: 64 Гб
                 Основная камера: 16 Mpx + 2 Mpx
                 Фронтальная камера: 16 Mpx `
+            },{
+                idx: 19,
+                img: 'https://object.pscloud.io/cms/cms/Photo/img_0_66_210_0.jpg',
+                title: 'Компьютер Lenovo Legion C530-19ICB (90JX005FKZ)',
+                price: 441390,
+                description: `Категория: Игровые
+                Процессор: Intel® Core™ i7
+                Количество ядер: 6
+                Тактовая частота: 3.2 ГГц
+                Socket: LGA1151
+                Объем оперативной памяти: 16 ГБ
+                Объем жесткого диска: HDD 1 Тб + SSD 256 Гб
+                Операционная система: DOS
+                Модель процессора: Intel® Core™ i7-8700
+                Модель видеоадаптера: 1050 Ti
+                Объем памяти видеоадаптера: 4 ГБ
+                Оптический привод: Нет`
+            },{
+                idx: 20,
+                img: 'https://object.pscloud.io/cms/cms/Photo/img_0_62_1524_0.png',
+                title: 'Ноутбук Asus TUF Gaming FX505DD-AL134 Gold Steel (90NR02C1-M03490)',
+                price: 259990,
+                description: `Диагональ: 15,6″ - 39,62 см
+                Процессор: AMD Ryzen 5
+                Операционная система: DOS
+                Частота процессора: 2.1 ГГц
+                Объем оперативной памяти: 8 ГБ
+                Тип жесткого диска: HDD
+                Объем накопителя: 1 ТБ
+                Видеоадаптер: GeForce GTX
+                Чипсет видеоадаптера: 1050
+                Объем памяти видеоадаптера: 3 ГБ`
+            },{
+                idx: 21,
+                img: 'https://object.pscloud.io/cms/cms/Photo/img_0_83_808_0.jpg',
+                title: 'Гарнитура SteelSeries Arctis 5 White',
+                price: 44990,
+                description: `Тип наушников: Полноразмерные
+                Тип подключения: Проводное
+                Частотный диапазон: 20 - 20000 Гц`
+            },{
+                idx: 22,
+                img: 'https://object.pscloud.io/cms/cms/Photo/img_0_65_217_5.jpg',
+                title: 'LCD-монитор Acer ED2 (UM.JE2EE.009)',
+                price: 122090,
+                description: `Диагональ: 31,5″ - 80 см
+                Разрешение: 1920х1080 (FullHD)
+                Изогнутый экран: Да
+                Страна производителя: Китай
+                Яркость (Кд): 250 кд/м2
+                Частота обновления: 60 Гц
+                Время отклика: 4 мс
+                Поддержка 3D: Да`
             }
         ]
     ]

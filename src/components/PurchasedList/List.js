@@ -8,18 +8,16 @@ const List = ({ state, deleteGadget }) => {
     const { boughtGadgets, total } = state;
 
     const onDelete = (id) => {
-        console.log(id)
         deleteGadget(id)
     }
 
     return (
         <Fragment>
             <Segment basic style={{ marginTop: 30 }}>
-                <Container>{boughtGadgets.length !== 0 ? 
-            <Fragment>
+                <Container>
                     <Header as='h2' textAlign='center' inverted>Купленные гаджеты</Header>
-                    <Divider></Divider>
-                <Table celled singleLine>
+                    <Divider inverted></Divider>
+                {boughtGadgets.length !== 0 ? <Fragment><Table celled singleLine>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>Id</Table.HeaderCell>
