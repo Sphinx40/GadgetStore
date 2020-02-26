@@ -2,7 +2,6 @@ import { favourites } from "./actions";
 
 const initialstate = {
     total: 0,
-    scroll: false,
     favourites: [],
     search: '',
     tableActive: false,
@@ -294,69 +293,49 @@ const initialstate = {
     ]
 }
 
-const reducer = (state = initialstate, action) => {
+const buyGadget = (count,page,id,state) => {
+    var t = 0;
+    for (var z = 0; z < count; z++) {
+        t = t + state.gadget[page][id].price
+    }
+    return {
+        ...state,
+        total: state.total + t
+    }
+}
 
-    switch (action.type) {
-        case 'BUY':
-            var t = 0;
-            for (var z = 0; z < action.payload.number; z++) {
-                t = t + state.gadget[action.payload.page][action.payload.id].price
-            }
-            return {
-                ...state,
-                total: state.total + t
-            }
-        case 'SCROLL':
-            return {
-                ...state,
-                scroll: action.payload.tf
-            }
-        case 'FAVOURITES':
-            const n = state.favourites.findIndex(({ id }) => id === action.payload.fav)
+const addToFavourites = (state,fav,page) => {
+    const n = state.favourites.findIndex(({ id }) => id === fav)
             if (n < 0) {
                 return {
                     ...state,
                     favourites: [...state.favourites, {
-                        page: action.payload.page,
-                        img: state.gadget[action.payload.page][action.payload.fav].img,
-                        title: state.gadget[action.payload.page][action.payload.fav].title,
-                        price: state.gadget[action.payload.page][action.payload.fav].price,
-                        count: 1,
-                        id: action.payload.fav
+                        idx: state.gadget[page][fav].idx,
+                        page: page,
+                        img: state.gadget[page][fav].img,
+                        title: state.gadget[page][fav].title,
+                        price: state.gadget[page][fav].price,
+                        count: 1
                     }]
                 }
             } else {
                 return state;
             }
+}
 
-        case 'DELETE':
-            return {
-                ...state,
-                favourites: action.payload.newArray
-            }
-        case 'SEARCH':
-            return {
-                ...state,
-                search: action.payload.word
-            }
-        case 'ACTIVE':
-            return {
-                ...state,
-                tableActive: true
-            }
-        case 'BOUGHT_GADGETS':
-            let nn = state.boughtGadgets.findIndex(({ idx }) => idx === action.payload.idx)
+const addToBoughtGadgets = (state,index,payload,price,count) => {
+    let nn = state.boughtGadgets.findIndex(({ idx }) => idx === index)
             if (nn < 0) {
                 return {
                     ...state,
-                    boughtGadgets: [...state.boughtGadgets, action.payload]
+                    boughtGadgets: [...state.boughtGadgets, payload]
                 }
             } else {
                 let t = [...state.boughtGadgets];
                 t.map(item => {
-                    if (item.idx === action.payload.idx) {
-                        item.price = item.price + action.payload.price;
-                        item.count = item.count + action.payload.count;
+                    if (item.idx === index) {
+                        item.price = item.price + price;
+                        item.count = item.count + count;
                     }
                 })
                 return {
@@ -364,17 +343,53 @@ const reducer = (state = initialstate, action) => {
                     boughtGadgets: t
                 }
             }
-        case 'DELETE_PURCHASE':
-            const price = state.boughtGadgets[action.payload].price;
-            const newArray = [
-                ...state.boughtGadgets.slice(0, action.payload),
-                ...state.boughtGadgets.slice(action.payload + 1)
-            ];
+}
+
+const deleteItemInPurchase = (state,payload) => {
+    const price = state.boughtGadgets[payload].price;
+    const newArray = [
+        ...state.boughtGadgets.slice(0, payload),
+        ...state.boughtGadgets.slice(payload + 1)
+    ];
+    return {
+        ...state,
+        boughtGadgets: newArray,
+        total: state.total - price
+    }
+}
+
+const reducer = (state = initialstate, action) => {
+
+    switch (action.type) {
+        case 'BUY':
+            return buyGadget(action.payload.number,action.payload.page,action.payload.id,state);
+
+        case 'FAVOURITES':
+            return addToFavourites(state,action.payload.fav,action.payload.page)
+
+        case 'DELETE':
             return {
                 ...state,
-                boughtGadgets: newArray,
-                total: state.total - price
+                favourites: action.payload.newArray
             }
+
+        case 'SEARCH':
+            return {
+                ...state,
+                search: action.payload.word
+            }
+
+        case 'ACTIVE':
+            return {
+                ...state,
+                tableActive: true
+            }
+
+        case 'BOUGHT_GADGETS':
+            return addToBoughtGadgets(state,action.payload.idx,action.payload,action.payload.price,action.payload.count)
+
+        case 'DELETE_PURCHASE':
+            return deleteItemInPurchase(state,action.payload)    
 
         default:
             return state;

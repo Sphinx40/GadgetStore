@@ -8,13 +8,6 @@ import { moneyFormat } from '../../utils/helpers';
 const Details = ({ id, state, buy, favourites, active, bought, page }) => {
     const [num, setNum] = useState(1)
 
-    useEffect(() => {
-        if (scroll) {
-            window.scrollTo(0, 0)
-        }
-    }, [])
-
-
     const minus = () => {
         if (num > 1) {
             setNum(num - 1)
@@ -49,7 +42,7 @@ const Details = ({ id, state, buy, favourites, active, bought, page }) => {
         favourites(id, page)
     }
 
-    const { gadget, scroll } = state;
+    const { gadget } = state;
 
     return (
         <div className='details'>

@@ -8,23 +8,23 @@ import { moneyFormat } from '../../utils/helpers';
 const Favourite = ({ state, buy, Delete, bought }) => {
     const { favourites, gadget, tableActive } = state;
     const [favouriteList, setFavouriteList] = useState([]);
-    const [gadgetPrice, setGadgetPrice] = useState(0);
 
     useEffect(() => {
         setFavouriteList(favourites)
     },[favourites])
 
-    const handleBuy = (id,count,page) => {
-        buy(id,count,page)
-         const g = {
+    const handleBuy = (id,count,page,index) => {
+        let gadgetIndexPrice = gadget[page].find(({idx}) => idx === index)
+        buy(index,count,page)
+        const g = {
             idx: gadget[page][id].idx,
             img: gadget[page][id].img,
             title: gadget[page][id].title,
             price: 0,
             count: favouriteList[id].count
         } 
-         for (var p = 0; p < g.count; p++) {
-            g.price = g.price + gadget[page][id].price;
+         for (var p = 0; p < count; p++) {
+            g.price = g.price + gadgetIndexPrice.price;
         }
         bought(g) 
     }
@@ -36,30 +36,29 @@ const Favourite = ({ state, buy, Delete, bought }) => {
         ];
         Delete(newArray)
     }
-    const onPlus = (id) => {
+    const onPlus = (id,page) => {
+        let g = gadget[page].find(({idx}) => idx === id)
         setFavouriteList(i => {
             let t = [ ...i ];
             t.map(item => {
-                let p = item.price;
-                if (item.id === id) {
+                if (item.idx === id) {
                     item.count = item.count + 1;
-                    item.price = item.price + p; 
+                    item.price = item.price + g.price; 
                 }
             })
             return t;
         })
     }
 
-    const onMinus = (id) => {
-        let gadget = favourites.find(({id}) => id === id)
+    const onMinus = (id,page) => {
+        let g = gadget[page].find(({idx}) => idx === id)
         setFavouriteList(i => {
             let t = [ ...i ];
             t.map(item => {
-                if (item.id === id) {
+                if (item.idx === id) {
                     if (item.count>1) {
                         item.count = item.count - 1;
-                        console.log(gadget.price,item.price)
-                        item.price = item.price - gadgetPrice;
+                        item.price = item.price - g.price;
                     } else {
                         item.count = 1;
                     }
@@ -90,9 +89,9 @@ const Favourite = ({ state, buy, Delete, bought }) => {
                       <tr class="" key={id}>
                         <td class="">{id+1}</td>
                         <td class=""><img src={item.img} id='titleImg'/>{item.title}</td>
-                        <td class=""><Button color='instagram' onClick={() => onPlus(item.id)}>+</Button> {item.count}&nbsp; <Button color='instagram' onClick={() => onMinus(item.id)}>-</Button></td>
+                        <td class=""><Button color='instagram' onClick={() => onMinus(item.idx,item.page)}>-</Button>{item.count}&nbsp;<Button color='instagram' onClick={() => onPlus(item.idx,item.page)}>+</Button></td>
                         <td class="">{moneyFormat(item.price)}</td>
-                        <td class=""><button class="ui green tiny button" onClick={() => handleBuy(item.id,item.count,item.page)}>Buy</button><button class="ui red tiny inverted button" onClick={() => handleDelete(id)}>Delete</button></td>
+                        <td class=""><button class="ui green tiny button" onClick={() => handleBuy(id,item.count,item.page,item.idx)}>Buy</button><button class="ui red tiny inverted button" onClick={() => handleDelete(id)}>Delete</button></td>
                       </tr>  
                     ))}  
                   

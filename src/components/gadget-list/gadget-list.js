@@ -5,14 +5,11 @@ import * as actions from '../../actions';
 import { Pagination, Segment } from 'semantic-ui-react';
 import { moneyFormat } from '../../utils/helpers';
 
-const GadgetList = ({ state, onItemSelected, scroll }) => {
+const GadgetList = ({ state, onItemSelected }) => {
   const { gadget, search } = state;
   const [activePaginationPage, setActivePaginationPage] = useState(0);
   const [Gadget, setGadget] = useState([])
 
-  useEffect(() => {
-   scroll(false)
-  },[])
 
   useEffect(() => {
     setGadget(gadget[activePaginationPage])
@@ -20,7 +17,7 @@ const GadgetList = ({ state, onItemSelected, scroll }) => {
 
   const handleClick = (id) => {
     onItemSelected(id,activePaginationPage)
-    scroll(true)
+    window.scrollTo(0,0)
   }
 
   const onPageChange = (e, { activePage } ) => {
